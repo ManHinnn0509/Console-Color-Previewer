@@ -55,18 +55,28 @@ public class Main {
                 }
             }
 
-            System.out.println(genANSI_TrueColorCode(r, g, b) + msg + "\n" + blocks + "\n" + allAscii + ANSI_RESET);
+            final String textColor = genANSI_TrueColorCode(r, g, b);
+            final String backColor = genANSI_BackTrueColorCode(r, g, b);
+            System.out.println(
+                    colorizeString(msg, textColor, "") + "\n"
+                    + colorizeString(blocks, "", backColor) + "\n"
+                    + colorizeString(allAscii, textColor, "")
+            );
         }
     }
 
     private static final String PREFIX = "\u001b[";
     private static final String ANSI_RESET = "\u001B[0m";
 
+    public static String colorizeString(String str, String textColorCode, String backColorCode) {
+        return textColorCode + backColorCode + str + ANSI_RESET;
+    }
+
     private static String genANSI_TrueColorCode(int r, int g, int b) {
         return PREFIX + "38;2;" + r + ";" + g + ";" + b + "m";
     }
 
-    private static String genANSI_TrueColorCode(Color color) {
-        return PREFIX + "38;2;" + color.getRed() + ";" + color.getGreen() + ";" + color.getBlue() + "m";
+    public static String genANSI_BackTrueColorCode(int r, int g, int b) {
+        return PREFIX + "48;2;" + r + ";" + g + ";" + b + "m";
     }
 }
