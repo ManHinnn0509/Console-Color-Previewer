@@ -16,6 +16,9 @@ public class Main {
             if (input.equals("exit")) {
                 break;
             }
+	    if (input.equals("")) {
+		    continue;
+	    }
 
             final String[] parts = input.split(" ");
 
@@ -24,6 +27,10 @@ public class Main {
                 if (!input.startsWith("#")) {
                     input = "#" + input;
                 }
+		if (input.length() > 7) {
+			System.out.println("Invalid input!");
+			continue;
+		}
 
                 try {
                     r = Integer.valueOf(input.substring( 1, 3 ), 16);
